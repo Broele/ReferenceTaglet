@@ -4,6 +4,7 @@ import com.sun.javadoc.Tag;
 import com.sun.tools.doclets.Taglet;
 
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -62,8 +63,10 @@ public class ReferenceTag implements Taglet {
 
 	@Override
 	public String toString(Tag[] tags) {
+		// Headline
 		String result = "<h4>References:</h4>";
 
+		// Ordered List
 		result += "<ol>";
 		int i = 0;
 		for (Tag tag: tags) {
@@ -72,18 +75,20 @@ public class ReferenceTag implements Taglet {
 		}
 			
 		result += "</ol>";
+
+		// Load the required script for updating the cites
         result += "<script type='text/javascript'>";
         try {
             InputStream stream = getClass().getClassLoader().getResourceAsStream("updateCites.js");
-            if (stream == null)
-                System.out.println("OhOh");
             result += new Scanner(stream, "UTF-8").useDelimiter("\\A").next();
-//            result += new String(Files.readAllBytes(Paths.get(getClass().getResource("updateCites.js").toURI())));
         } catch (Exception e) {
-            result += "alert('" + e.toString() +"');\n";
             e.printStackTrace();
         }
         result += "</script>";
 		return result;
+	}
+
+	public static void register(Map tagletMap) {
+		tagletMap.put(TAG, new ReferenceTag());
 	}
 }
