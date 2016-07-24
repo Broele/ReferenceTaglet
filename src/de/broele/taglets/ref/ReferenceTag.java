@@ -3,6 +3,9 @@ package de.broele.taglets.ref;
 import com.sun.javadoc.Tag;
 import com.sun.tools.doclets.Taglet;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 /**
  * This class provides the function for dealing with a {@code @ref} Tag.
  * This allows to build bibliography of relevant sources for your code.
@@ -69,6 +72,18 @@ public class ReferenceTag implements Taglet {
 		}
 			
 		result += "</ol>";
+        result += "<script type='text/javascript'>";
+        try {
+            InputStream stream = getClass().getClassLoader().getResourceAsStream("updateCites.js");
+            if (stream == null)
+                System.out.println("OhOh");
+            result += new Scanner(stream, "UTF-8").useDelimiter("\\A").next();
+//            result += new String(Files.readAllBytes(Paths.get(getClass().getResource("updateCites.js").toURI())));
+        } catch (Exception e) {
+            result += "alert('" + e.toString() +"');\n";
+            e.printStackTrace();
+        }
+        result += "</script>";
 		return result;
 	}
 }
