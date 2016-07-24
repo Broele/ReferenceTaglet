@@ -7,7 +7,11 @@ import com.sun.tools.doclets.Taglet;
 /**
  * The taglet registry to manage and register all relevant tags (right now this is only the {@link ReferenceTag "ref"} tag).
  * This registry can be used in the javadoc call to add the support for reference tags. For doing so, add the 
- * command line parameters {@code -taglet de.broele.taglets.ref.RefTagsRegistry -tagletpath path/to/the/refTags.jar}
+ * command line parameters {@code -taglet de.broele.taglets.ref.RefTagsRegistry -tagletpath path/to/the/refTags.jar}.
+ *
+ * Further information can be found in the web<a class="cite" href="#taglet" ></a>.
+ *
+ * @ref taglet Oracle. Taglet Overview. http://docs.oracle.com/javase/7/docs/technotes/guides/javadoc/taglet/overview.html
  */
 public class RefTagsRegistry {
 	/**
