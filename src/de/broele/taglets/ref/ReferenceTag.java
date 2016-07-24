@@ -4,9 +4,8 @@ import com.sun.javadoc.Tag;
 import com.sun.tools.doclets.Taglet;
 
 /**
- * This class represents a reference taglet "ref" that can be used to
- * reference some sources for your code.
- *
+ * This class provides the function for dealing with a {@code @ref} Tag.
+ * This allows to build bibliography of relevant sources for your code.
  */
 public class ReferenceTag implements Taglet {
 	
@@ -61,13 +60,15 @@ public class ReferenceTag implements Taglet {
 	@Override
 	public String toString(Tag[] tags) {
 		String result = "<h4>References:</h4>";
+
+		result += "<ol>";
 		int i = 0;
 		for (Tag tag: tags) {
 			i++;
-			result += "<li>" + tag.text() + "</li>";
+			result += Reference.fromTagText(tag.text()).toHtml();
 		}
 			
-		result += "";
+		result += "</ol>";
 		return result;
 	}
 }
